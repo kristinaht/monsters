@@ -9,7 +9,8 @@ class App extends Component {
 
     this.state = {
       monsters: [],
-    }
+      searchField: ''
+    };
   }
 
   componentDidMount() {
@@ -20,10 +21,21 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-         <CardList monsters={this.state.monsters}/>
+        <input 
+          type='search' 
+          placeholder='search monsters' 
+          onChange={e => {
+            this.setState({ searchField: e.target.value}, () => console.log(this.state)); 
+            } } />
+        <CardList monsters={this.state.monsters}/>
       </div>
     );
   }
 }
 
 export default App;
+
+//setState in onChange:
+//because setState is async function, the searchField is one letter behind. In order to fix this, I pass another argument to setState - I pass in the callback function
+
+//remember: if you want to do something with the state right after you set it, you have to do it inside the second argument function within setSTate function. This callback f is called right after setState
